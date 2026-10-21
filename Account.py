@@ -7,21 +7,21 @@ class Account:
             raise ValueError("Starting balance cannot be negative")
 
         self.owner_name = owner_name
-        self.balance = balance
+        self._balance = balance
 
     def get_balance(self):
-        return self.balance
+        return self._balance
 
     def deposit(self, amount):
         if amount <= 0:
             return False
-        self.balance += amount
+        self._balance += amount
         return True
 
     def withdraw(self, amount):
-        if amount <= 0 or amount > self.balance:
+        if amount <= 0 or amount > self._balance:
             return False
 
-        self.balance -= amount
+        self._balance -= amount
         return True
 

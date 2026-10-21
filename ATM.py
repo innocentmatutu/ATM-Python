@@ -1,28 +1,42 @@
+from Bank import Bank
 class ATM:
+    def _read_amount(self,prompt):
+        while True:
+            try:
+                return float(input(prompt))
+            except ValueError:
+                print("please enter a valid number")
+                
     def withdraw_from(self, account):
-        try: 
-            amount = float(input("Amount to withdraw: "))
-        except ValueError: 
-            print("Please enter a valid number.")
-            return
-
+        amount = self._read_amount("Amount to withdraw: ")
+        
         if account.withdraw(amount):
             print(f"Withdrawal successful. Balance: {account.get_balance()}")
         else:
             print("Withdrawal failed. Check the amount and available balance.")
 
     def deposit_to(self, account):
-        try:
-            amount = float(input("Amount to deposit: "))
-        except ValueError:
-            print("Please enter a valid number.")
-            return
+        amount = self._read_amount("Enter amount to deposit: ")
+
         if account.deposit(amount):
             print(f"Deposit successful. Balance: {account.get_balance()}")
         else:
             print("Deposit failed. The amount must be greater than zero.")
 
-    def run(self, account):
+    def run(self, bank):
+        while True:
+            account_number = input("Enter your account number, or x to exit: ")
+            if account_number.lower() == "x":
+                print("Goodbye")
+                return
+        
+            account = bank.find_account(account_number)
+            if account is None:
+                print("Account number not found.Please try again ")
+                continue
+        
+            break
+
         while True:
             print("\n1. Check balance")
             print("2. Deposit")
