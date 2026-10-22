@@ -1,4 +1,3 @@
-from Bank import Bank
 class ATM:
     def _read_amount(self,prompt):
         while True:
@@ -29,13 +28,16 @@ class ATM:
             if account_number.lower() == "x":
                 print("Goodbye")
                 return
+
+            if not account_number.isdigit():
+                print("Account number must contain digits only.")
+                continue
         
             account = bank.find_account(account_number)
             if account is None:
                 print("Account number not found.Please try again ")
-                continue
-        
-            break
+            else:
+                break
 
         while True:
             print("\n1. Check balance")

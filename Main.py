@@ -4,12 +4,13 @@ from Bank import Bank
 
 def main():
     bank = Bank()
-    bank.add_account(Account("Amina", 100.0),"1001")
-    bank.add_account(Account("Brian", 250.0),"1002")
+    if not bank.load_accounts():
+        bank.add_account(Account("Amina", 100.0),"1001")
+        bank.add_account(Account("Brian", 250.0),"1002")
     
     atm = ATM()
-    account = bank.find_account("1001")
-    atm.run(account)
+    atm.run(bank)
+    bank.save_accounts()
 
 if __name__ == "__main__":
     main()
