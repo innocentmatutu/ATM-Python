@@ -39,6 +39,23 @@ class ATM:
             else:
                 break
 
+        attempts_remaining = 3
+        authenticated = False
+
+        while attempts_remaining > 0:
+            entered_pin = input("Enter your pin number: ")
+
+            if account.verify_pin(entered_pin):
+                authenticated = True
+                break
+
+            attempts_remaining -= 1
+            print(f"Incorrect PIN. Attempts remaining: {attempts_remaining}")
+
+        if not authenticated:
+            print("Too many incorrect PIN attempts.")
+            return
+
         while True:
             print("\n1. Check balance")
             print("2. Deposit")
